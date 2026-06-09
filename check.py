@@ -4,6 +4,10 @@ from pathlib import Path
 
 from PIL import Image
 
-for p in sorted(Path("resized_samples").glob("sample_*x*.jpg")):
-    with Image.open(p) as im:
-        print(p.name, im.size)
+output_root = Path("resized_samples")
+
+for size_dir in sorted(path for path in output_root.iterdir() if path.is_dir()):
+    print(f"[{size_dir.name}]")
+    for image_path in sorted(size_dir.glob("*.jpg")):
+        with Image.open(image_path) as im:
+            print(image_path.name, im.size)
